@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Calculator</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const pads=[
+    {
+      name:"zero",
+      value :0,
+      types : "num"
+    },
+     {
+      name:"one",
+      
+      value :1,
+      types : "num"
+    },
+     {
+      name:"two",
+       value :2,
+      types : "num"
+    },
+     {
+      name:"three",
+       value :3,
+      types : "num"
+    },
+     {
+      name:"four",
+       value :4,
+      types : "num"
+    },
+     {
+      name:"five",
+       value :5,
+      types : "num"
+    },
+     {
+      name:"six",
+       value :6,
+      types : "num"
+    }, 
+    {
+      name:"seven",
+      value :7,
+      types: "num"
+    },
+     {
+      name:"eight",
+       value :8,
+      types : "num"
+    },
+     {
+      name:"nine",
+      value :9,
+      types : "num"
+    },
+     {
+      name:"add",
+       value :"+",
+      types : "oper"
+    },
+     {
+      name:"subtract",
+         value :"-",
+      types : "oper"
+    },
+     {
+      name:"divide",
+         value :"/",
+      types : "oper"
+    },
+     {
+      name:"multiply",
+        value :"*",
+      types : "oper"
+    },
+    {
+      name:"equals",
+        value :"=",
+      types : "oper"
+    },
+    {
+      name:"decimal",
+        value :".",
+      types : "oper"
+    },
+    {
+      name:"clear",
+      value :"AC",
+      types : "oper"
+    }
+  ]
+  
+        class App extends React.Component{
+    constructor(props){
+      super(props)
+      this.state={
+        pads:pads,
+        totalInput:"",
+        opperand:"",
+        resulted:false
+      }
+    this.clickHandler = this.clickHandler.bind(this)
+    }
+    clickHandler(e){
+      let val = e.target.value
+      switch(val){
+        case "0":
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+         if(this.state.resulted){
+           this.setState(state =>({
+            totalInput:"",
+            opperand: val,
+            resulted:false
+         }))
+         }      
+          else{
+            if(this.state.opperand ==="/" || this.state.opperand ==="*" ||this.state.opperand ==="-" || this.state.opperand ==="+" || this.state.opperand ==="/-" || this.state.opperand ==="*-"){
+            this.setState(state =>({
+            totalInput : state.totalInput + state.opperand,
+            opperand : ""
+          }))
+          
+          }
+          if(this.state.opperand === "0"){
+            if( val !=="0"){
+               this.setState(state =>({
+               opperand : val
+          }))
+            }
+          }
+          else{
+              this.setState(state =>({
+              opperand : state.opperand + val
+          }))
+          }
+         }
+        
+          break;
+        case "/":
+          if(this.state.resulted === true){
+            this.setState(state =>({
+              totalInput: state.opperand,
+              opperand:"",
+              resulted: false
+          }))
+          }
+          if(this.state.opperand !=="/" && this.state.opperand !=="*" && this.state.opperand !=="-" && this.state.opperand !=="+" && this.state.opperand !=="/-" && this.state.opperand !=="*-"){
+              this.setState(state =>({
+              totalInput: state.totalInput + state.opperand,
+              opperand:"",
+              
+          }))
+          }
+              this.setState(state =>({
+              opperand :  val
+          }))
+          break;
+          case "*":
+          if(this.state.resulted === true){
+            this.setState(state =>({
+              totalInput: state.opperand,
+              opperand:"",
+              resulted: false
+          }))
+          }
+          if(this.state.opperand !=="/" && this.state.opperand !=="*" && this.state.opperand !=="-" && this.state.opperand !=="+" && this.state.opperand !=="/-" && this.state.opperand !=="*-"){
+              this.setState(state =>({
+              totalInput: state.totalInput + state.opperand,
+              opperand:""
+          }))
+          }
+              this.setState(state =>({
+              opperand :  val
+          }))
+          break;
+          case "+":
+          if(this.state.resulted === true){
+            this.setState(state =>({
+              totalInput: state.opperand,
+              opperand:"",
+              resulted: false
+          }))
+          }
+          if(this.state.opperand !=="/" && this.state.opperand !=="*" && this.state.opperand !=="-" && this.state.opperand !=="+" && this.state.opperand !=="/-" && this.state.opperand !=="*-"){
+              this.setState(state =>({
+              totalInput: state.totalInput + state.opperand,
+              opperand:""
+          }))
+          }
+              this.setState(state =>({
+              opperand :  val
+          }))
+          break;
+          
+          case "-":
+          if(this.state.resulted === true){
+            this.setState(state =>({
+              totalInput: state.opperand,
+              opperand:"",
+              resulted: false
+          }))
+          }
+          if(this.state.opperand !=="/" && this.state.opperand !=="*" && this.state.opperand !=="-" && this.state.opperand !=="+" && this.state.opperand !=="/-" && this.state.opperand !=="*-"){
+              this.setState(state =>({
+              totalInput: state.totalInput + state.opperand,
+              opperand:""
+          }))
+          }
+          if( this.state.opperand ==="/"){
+                 this.setState(state =>({
+              opperand :"/-"
+          }))
+          }
+            else if( this.state.opperand ==="*"){
+                 this.setState(state =>({
+              opperand :"*-"
+          }))
+          }
+        else{
+            
+                 this.setState(state =>({
+              opperand :"-"
+          }))
+          
+        }
+          break;
+          
+        case ".":
+          if(this.state.opperand.indexOf(".") === -1 && this.state.opperand.length >= 1){
+                this.setState(state =>({
+              opperand : state.opperand + "."
+          }))
+          }
+          break;
+        case "AC":
+           this.setState(state =>({
+            opperand : "",
+            totalInput : ""
+          }))
+          break;
+          
+        case "=":
+          
+          
+              if(this.state.resulted !== true){
+                if(this.state.opperand !== ""){
+              this.setState(state =>({
+             totalInput: state.totalInput + state.opperand,
+             opperand:""
+          }))
+          }
+                  this.setState(state =>({
+              opperand: Number(eval(state.totalInput).toFixed(4)),
+              totalInput: state.totalInput + "=", 
+              resulted:true,
+          }))
+         
+              }
+          
+            
+          
+       
+           
+          break;
+      }
+    }
+    render(){
+       
+      return(
+        <div id="container">
+        <div id="display">
+          {this.state.opperand === "" ? 0 : this.state.opperand}
+          </div>
+          <div id="input">{this.state.totalInput}{this.state.opperand}</div>
+            {this.state.pads.map(item => <button className="btn" id={item.name} value={item.value} onClick={this.clickHandler}>{item.value}</button>)}
+           </div>
+          
+      )        
+    }
+  } 
+  
+         ReactDOM.render(
+            <App/>,
+            document.getElementById('root')
+        );     
+    </script>
+  </body>
+</html>
